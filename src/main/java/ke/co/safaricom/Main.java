@@ -1,55 +1,57 @@
 package ke.co.safaricom;
 
-public class encryptAndDecrypt {
+import java.util.Scanner;
+
+public class Main {
     static String alphabet = ("abcdefghijklmnopqrstuvwxyz");
 
-    public static String Encoding(String pText, int Key) {
+    public static String encoding(String pText, int key) {
         pText = pText.toLowerCase();
 
         String cText ="";
 
         for (int i = 0; i < pText.length(); i++) {
             int charIndex = alphabet.indexOf(pText.charAt(i));
-            int newIndex = (charIndex + key);
+            int newIndex = (charIndex + key) % 26;
             char cipherChar = alphabet.charAt(newIndex);
-            cText = (cText) + (cipherChar);
+            cText = cText + cipherChar;
 
-            return cText;
         };
 
-        public static String decoding(String cText, int key){
-            cText = cText.toLowerCase();
+        return cText;
+    };
+    public static String decoding(String cText, int key){
+        cText = cText.toLowerCase();
 
-            String pText ="";
+        String pText ="";
 
-            for(int i = 0; i < cText.length(); i++) {
-                int charIndex = alphabet.indexOf(cText.charAt(i));
-                int newIndex = (charIndex-key);
+        for (int i = 0; i < cText.length(); i++) {
+            int charIndex = alphabet.indexOf(cText.charAt(i));
+            int newIndex = (charIndex - key) % 26;
+            if (newIndex <0) {
+                newIndex = alphabet.length() + newIndex;
+            }
+            char plainChar = alphabet.charAt(newIndex);
 
+            pText = pText+plainChar;
 
-                char plainChar = alphabet.charAt(newIndex);
-                pText = (pText)+(plainChar);
-
-
-                return pText;
-            };
         };
+        return pText;
     };
 
+    public static void main(String[] args){
+            Scanner scan = new Scanner(System.in);
 
-    public static class encryptAndDecrypt1(String[] args){
-            Scanner scan = new Scanner(system.in);
-
-            System.out.Print("Enter plain text>>");
+            System.out.print("Enter plain text>>");
             String plain = scan.nextLine();
 
-            System.out.Print("Enter key>>");
+            System.out.print("Enter key>>");
             int key = scan.nextInt();
 
             String cipherText = encoding(plain, key);
-            System.out.printIn("The cipher text: + cipherText");
+            System.out.println("The cipher text: "+ cipherText);
 
-            System.out.printIn("The decoded message is: + decoding(cipherText, key");
+            System.out.println("The decoded message is:" + decoding(cipherText, key));
 
 
         };
